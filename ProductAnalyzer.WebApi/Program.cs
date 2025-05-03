@@ -10,7 +10,7 @@ builder.Services.AddHttpClient("ProductClient", client =>
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
-builder.Services.AddScoped<IBottleQuery, BottleQuery>();
+builder.Services.AddScoped<IProductQuery, ProductQuery>();
 builder.Services.AddScoped<IProductGateway, ProductGateway>();
 builder.Services.AddScoped<IProductClientFactory, ProductClientFactory>();
 

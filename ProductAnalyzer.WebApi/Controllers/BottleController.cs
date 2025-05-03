@@ -5,7 +5,7 @@ namespace ProductAnalyzer.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BottleController(IBottleQuery bottleQuery) : ControllerBase
+    public class BottleController(IProductQuery bottleQuery) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> GetAsync()
@@ -14,10 +14,10 @@ namespace ProductAnalyzer.WebApi.Controllers
             return Ok(ToContract(bottles));
         }
 
-        private static IEnumerable<BottleContract> ToContract(IEnumerable<Bottle> bottles)
+        private static IEnumerable<BottleContract> ToContract(IEnumerable<Product> products)
         {
             // This method could be split into its own assembler class if wanted.
-            return bottles.Select(b => new BottleContract { Brand = b.Name, Price = b.PricePerLitre });
+            return products.Select(product => new BottleContract { Brand = product.Name, Price = product.Articles.FirstOrDefault()?.PricePerLitre ?? 0});
         }
     }
 }

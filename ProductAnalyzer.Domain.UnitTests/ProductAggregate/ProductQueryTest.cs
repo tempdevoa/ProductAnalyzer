@@ -2,7 +2,7 @@ using ProductAnalyzer.Domain.ProductAggregate;
 
 namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
 {
-    public sealed partial class BottleQueryTest
+    public sealed partial class ProductQueryTest
     {
 
         private Fixture fixture;

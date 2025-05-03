@@ -4,7 +4,7 @@ using ProductAnalyzer.Gateways.ProductAggregate;
 
 namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
 {
-    public sealed partial class BottleQueryTest
+    public sealed partial class ProductQueryTest
     {
         private class Fixture
         {
@@ -17,9 +17,9 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
                 productGatewayMock.Setup(m => m.GetAllAsync()).ReturnsAsync([mostExpensivePerLitre, cheapestPerLitre]);
             }
 
-            public BottleQuery CreateTestObject()
+            public ProductQuery CreateTestObject()
             {
-                return new BottleQuery(productGatewayMock.Object);
+                return new ProductQuery(productGatewayMock.Object);
             }
 
             internal void AssertMocksInvokedCorrectly()
