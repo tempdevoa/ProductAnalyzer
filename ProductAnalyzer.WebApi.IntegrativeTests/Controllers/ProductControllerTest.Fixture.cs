@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ProductAnalyzer.Domain.ProductAggregate;
+using ProductAnalyzer.Domain.Testing;
 using ProductAnalyzer.WebApi.Contracts;
 using ProductAnalyzer.WebApi.Controllers;
 
@@ -10,8 +11,8 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
     {
 		private sealed class Fixture
 		{
-            private readonly Product cheapestBottleByLitre = new("Min", [new Article(1)]);
-            private readonly Product mostExpensiveBottleByLitre = new("Max", [new Article(2)]);
+            private readonly Product cheapestBottleByLitre = ProductBuilder.New().WithName("Min").WithArticleWithPrice(1).Build();
+			private readonly Product mostExpensiveBottleByLitre = ProductBuilder.New().WithName("Max").WithArticleWithPrice(2).Build();
             private readonly Mock<IProductQuery> bottleQueryMock = new();
 
 			public ProductController CreateTestObject()

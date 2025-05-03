@@ -10,7 +10,7 @@ namespace ProductAnalyzer.Domain.Testing
         }
 
         private string name = "Standardprodukt";
-        private List<Article> articles = new List<Article>();       
+        private List<Article> articles = new List<Article>();
 
         public Product Build()
         {
@@ -19,13 +19,19 @@ namespace ProductAnalyzer.Domain.Testing
 
         public ProductBuilder WithArticleWithPricePerUnit(decimal pricePerUnit)
         {
-            articles.Add(new Article(pricePerUnit));
+            articles.Add(new Article(pricePerUnit, pricePerUnit));
             return this;
         }
 
         public ProductBuilder WithName(string nameParam)
         {
             name = nameParam;
+            return this;
+        }
+
+        public ProductBuilder WithArticleWithPrice(decimal priceParam)
+        {
+            articles.Add(new Article(priceParam, priceParam));
             return this;
         }
     }

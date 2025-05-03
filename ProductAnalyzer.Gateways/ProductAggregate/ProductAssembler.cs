@@ -24,7 +24,18 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
 
         private static Article ToArticle(ArticleContract contract)
         {
-            return new Article(ToPricePerLitre(contract.PricePerUnit));
+            return new Article(contract.Price, ToPricePerLitre(contract.PricePerUnit));
+        }
+
+        private static decimal ToPrice(string? price)
+        {
+            if(price == null)
+            {
+                return 0m;
+            }
+
+            var culture = System.Globalization.CultureInfo.InvariantCulture;
+            return decimal.Parse(price, System.Globalization.NumberStyles.AllowDecimalPoint, culture);
         }
 
         private static decimal ToPricePerLitre(string? pricePerLitre)

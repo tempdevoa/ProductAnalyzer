@@ -6,5 +6,7 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
     {
         [JsonPropertyName("pricePerUnitText")]
         public required string PricePerUnit { get; set; }
+
+        public required decimal Price { get; set; }
     }
 }
