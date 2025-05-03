@@ -9,12 +9,27 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
 
         public static Product ToProduct(ProductContract contract)
         {
-            return new Product(contract.Name, ToPricePerLitre(contract.PricePerUnit));
+            return new Product(contract.Name ?? string.Empty, ToArticles(contract.Articles));
         }
 
-        private static decimal ToPricePerLitre(string pricePerLitre)
+        private static IReadOnlyCollection<Article> ToArticles(IEnumerable<ArticleContract>? articleContracts)
         {
-            var match = pricePerLitreRegex.Match(pricePerLitre);
+            if(articleContracts == null || !articleContracts.Any())
+            {
+                return Array.Empty<Article>();
+            }
+
+            return articleContracts.Select(ToArticle).ToList();
+        }
+
+        private static Article ToArticle(ArticleContract contract)
+        {
+            return new Article(ToPricePerLitre(contract.PricePerUnit));
+        }
+
+        private static decimal ToPricePerLitre(string? pricePerLitre)
+        {
+            var match = pricePerLitreRegex.Match(pricePerLitre ?? string.Empty);
             if (!match.Success)
             {
                 return 0m;

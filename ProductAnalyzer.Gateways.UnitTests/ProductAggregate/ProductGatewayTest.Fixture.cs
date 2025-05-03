@@ -13,7 +13,7 @@ namespace ProductAnalyzer.Gateways.UnitTests.ProductAggregate
             public Fixture()
             {
                 clientFactoryMock.Setup(m => m.Create()).Returns(clientMock.Object);
-                clientMock.Setup(m => m.GetAllAsync()).ReturnsAsync([new()]);
+                clientMock.Setup(m => m.GetAllAsync()).ReturnsAsync([new ProductContract { Name = "Name", Articles = [] }]);
             }
 
             public ProductGateway CreateTestObject()

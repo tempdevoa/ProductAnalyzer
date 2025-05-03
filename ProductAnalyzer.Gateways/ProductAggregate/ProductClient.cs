@@ -15,6 +15,7 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
                 new JsonSerializerOptions
                 {
                     TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
+                    PropertyNameCaseInsensitive = true,
                 }) ?? Enumerable.Empty<ProductContract>();
         }
     }

@@ -14,7 +14,7 @@ namespace ProductAnalyzer.Domain.ProductAggregate
 
         private Bottle ToBottle(Product product)
         {
-            return new Bottle(product.Name, product.PricePerLitre);
+            return new Bottle(product.Name, 0);
         }
     }
 }

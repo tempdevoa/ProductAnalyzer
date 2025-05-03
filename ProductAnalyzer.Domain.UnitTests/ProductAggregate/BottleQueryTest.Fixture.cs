@@ -9,8 +9,8 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
         private class Fixture
         {
             private readonly Mock<IProductGateway> productGatewayMock = new (MockBehavior.Loose);
-            private readonly Product cheapestPerLitre = new ("Cheap", 1.0m);
-            private readonly Product mostExpensivePerLitre = new ("Expensive", 99.0m);
+            private readonly Product cheapestPerLitre = new ("Cheap", new List<Article>());
+            private readonly Product mostExpensivePerLitre = new ("Expensive", new List<Article>());
 
             public Fixture()
             {

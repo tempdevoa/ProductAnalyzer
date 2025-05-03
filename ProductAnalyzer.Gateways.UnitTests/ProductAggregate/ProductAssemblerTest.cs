@@ -10,17 +10,15 @@ namespace ProductAnalyzer.Gateways.UnitTests.ProductAggregate
         [TestCase("(999,999 €/Liter)", 999.999)]
         public void ToProduct_ValidContract_ReturnsProduct(string pricePerUnitAsText, decimal pricePerUnit)
         {
-            var contract = new ProductContract
-            {
-                Name = "Test Product",
-                PricePerUnit = pricePerUnitAsText
-            };
+            var contract = new ProductContract { Name = "Test Product", Articles = [new ArticleContract { PricePerUnit = pricePerUnitAsText }] };
             
             var result = ProductAssembler.ToProduct(contract);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Name, Is.EqualTo("Test Product"));
-            Assert.That(result.PricePerLitre, Is.EqualTo(pricePerUnit));
+            Assert.That(result.Articles, Is.Not.Null);
+            Assert.That(result.Articles.Count, Is.EqualTo(1));
+            Assert.That(result.Articles.First().PricePerLitre, Is.EqualTo(pricePerUnit));
         }
     }
 }

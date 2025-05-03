@@ -2,13 +2,14 @@
 {
     public class Product
     {
-        public Product(string name, decimal pricePerLitre)
+        public Product(string name, IEnumerable<Article> articles)
         {
             Name = name;
-            PricePerLitre = pricePerLitre;
+            Articles = articles?.ToList() ?? new List<Article>();
         }
-        public string Name { get; set; }
+
+        public string Name { get; }
         
-        public decimal PricePerLitre { get; set; }
+        public IReadOnlyCollection<Article> Articles { get; }
     }
 }
