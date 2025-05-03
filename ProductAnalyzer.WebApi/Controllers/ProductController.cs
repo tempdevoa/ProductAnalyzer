@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductAnalyzer.Domain.ProductAggregate;
 using ProductAnalyzer.WebApi.Contracts;
-using System.Xml.Linq;
 
 namespace ProductAnalyzer.WebApi.Controllers
 {
@@ -24,6 +23,14 @@ namespace ProductAnalyzer.WebApi.Controllers
             return Ok(ToContract(bottles));
         }
 
+        [HttpGet]
+        [Route("MatchingPrice")]
+        public async Task<IActionResult> MatchingPriceAsync(decimal price)
+        {
+            var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MatchingPrice);
+            return Ok(ToContract(bottles));
+        }
+
         private static IEnumerable<ProductContract> ToContract(IEnumerable<Product> products)
         {
             // This methods could be split into its own assembler class if wanted.
@@ -32,7 +39,7 @@ namespace ProductAnalyzer.WebApi.Controllers
 
         private static ArticleContract[] ToContract(IEnumerable<Article> articles)
         {
-            return articles.Select(article => new ArticleContract { PricePerUnit = article.PricePerLitre }).ToArray();
+            return articles.Select(article => new ArticleContract { Price = article.Price, PricePerUnit = article.PricePerLitre }).ToArray();
         }
     }
 }

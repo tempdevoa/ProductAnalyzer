@@ -5,7 +5,9 @@
         public static ProductFilter OnlyFirst => new ProductFilter(new Func<IEnumerable<Product>, IEnumerable<Product>>(products => products.Take(1)));
 
         public static ProductFilter NonFiltering => new ProductFilter(new Func<IEnumerable<Product>, IEnumerable<Product>>(products => products));
-               
+
+        public static ProductFilter MatchingPrice => new ProductFilter(new Func<IEnumerable<Product>, IEnumerable<Product>>(products => products));
+
         public static ProductFilter MostExpensiveAndCheapest => new ProductFilter(new Func<IEnumerable<Product>, IEnumerable<Product>>(products =>
         {
             if (!products.Any())

@@ -9,3 +9,8 @@ GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MostExpensiveAndCheapest/
 Accept: application/json
 
 ###
+
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MatchingPrice?price=1.50
+Accept: application/json
+
+###
