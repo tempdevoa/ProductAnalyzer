@@ -34,7 +34,9 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
             {
                 return 0m;
             }
-            return decimal.Parse(match.Groups[1].Value);
+            
+            var culture = System.Globalization.CultureInfo.GetCultureInfo("de-DE");
+            return decimal.Parse(match.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, culture);
         }
     }
 }
