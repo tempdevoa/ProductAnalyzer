@@ -28,7 +28,7 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
         {
             var testObject = fixture.CreateTestObject();
 
-            var result = await testObject.QueryWithAsync(ProductFilterFactory.NonFiltering);
+            var result = await testObject.QueryWithAsync(ProductFilterFactory.OnlyFirst);
 
             Assert.That(result.Count(), Is.EqualTo(1), "Expected exactly one product in the result.");
         }

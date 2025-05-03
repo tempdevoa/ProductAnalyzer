@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProductAnalyzer.Domain.Testing\ProductAnalyzer.Domain.Testing.csproj" />
     <ProjectReference Include="..\ProductAnalyzer.Domain\ProductAnalyzer.Domain.csproj" />
   </ItemGroup>
 

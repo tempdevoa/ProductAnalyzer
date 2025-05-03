@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductAnalyzer.Domain.ProductAggregate;
 using ProductAnalyzer.WebApi.Contracts;
+using System.Xml.Linq;
 
 namespace ProductAnalyzer.WebApi.Controllers
 {
@@ -12,6 +13,14 @@ namespace ProductAnalyzer.WebApi.Controllers
         public async Task<IActionResult> GetAsync()
         {
             var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.NonFiltering);
+            return Ok(ToContract(bottles));
+        }
+
+        [HttpGet]
+        [Route("MostExpensiveAndCheapest")]
+        public async Task<IActionResult> GetMostExpensiveAndCheapestAsync()
+        {
+            var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MostExpensiveAndCheapest);
             return Ok(ToContract(bottles));
         }
 
