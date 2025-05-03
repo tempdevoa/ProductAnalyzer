@@ -1,6 +1,6 @@
 namespace ProductAnalyzer.WebApi.UnitTests.Controllers
 {
-    public sealed partial class BottleControllerTest
+    public sealed partial class ProductControllerTest
     {               
         private Fixture fixture;
 

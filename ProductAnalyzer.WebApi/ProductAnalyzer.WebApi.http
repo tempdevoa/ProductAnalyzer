@@ -1,11 +1,11 @@
 @ProductAnalyzer.WebApi_HostAddress = http://localhost:5136
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/bottle/
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/
 Accept: application/json
 
 ###
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/bottle/1
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/1
 Accept: application/json
 
 ###
