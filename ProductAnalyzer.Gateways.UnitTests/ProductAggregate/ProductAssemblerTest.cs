@@ -18,7 +18,7 @@ namespace ProductAnalyzer.Gateways.UnitTests.ProductAggregate
             Assert.That(result.Name, Is.EqualTo("Test Product"));
             Assert.That(result.Articles, Is.Not.Null);
             Assert.That(result.Articles.Count, Is.EqualTo(1));
-            Assert.That(result.Articles.First().PricePerLitre, Is.EqualTo(pricePerUnit));
+            Assert.That(result.Articles.First().PricePerUnit, Is.EqualTo(pricePerUnit));
             Assert.That(result.Articles.First().Price, Is.EqualTo(price));
         }
     }

@@ -4,6 +4,6 @@
     {
         public decimal Price { get; } = price;
 
-        public decimal PricePerLitre { get; } = pricePerLitre;
+        public decimal PricePerUnit { get; } = pricePerLitre;
     }
 }

@@ -36,10 +36,10 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
                     Assert.That(productContracts.Count(), Is.EqualTo(2), "Expected exactly 2 bottles in the result.");
                     Assert.That(productContracts.First().Name, Is.EqualTo(cheapestBottleByLitre.Name), "Expected the brand of the cheapest.");
 					Assert.That(productContracts.First().Articles, Is.Not.Null.Or.Empty, "The should be articles in the product");
-					Assert.That(productContracts.First().Articles[0].PricePerUnit, Is.EqualTo(cheapestBottleByLitre.Articles.First().PricePerLitre), "Expected the price of the cheapest.");
+					Assert.That(productContracts.First().Articles[0].PricePerUnit, Is.EqualTo(cheapestBottleByLitre.Articles.First().PricePerUnit), "Expected the price of the cheapest.");
                     Assert.That(productContracts.Last().Name, Is.EqualTo(mostExpensiveBottleByLitre.Name), "Expected the brand of the most expensive.");
                     Assert.That(productContracts.Last().Articles, Is.Not.Null.Or.Empty, "The should be articles in the product");
-                    Assert.That(productContracts.Last().Articles[0].PricePerUnit, Is.EqualTo(mostExpensiveBottleByLitre.Articles.First().PricePerLitre), "Expected the price of the most expensive.");
+                    Assert.That(productContracts.Last().Articles[0].PricePerUnit, Is.EqualTo(mostExpensiveBottleByLitre.Articles.First().PricePerUnit), "Expected the price of the most expensive.");
                 });
             }
 		}

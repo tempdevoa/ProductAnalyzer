@@ -39,7 +39,7 @@ namespace ProductAnalyzer.WebApi.Controllers
 
         private static ArticleContract[] ToContract(IEnumerable<Article> articles)
         {
-            return articles.Select(article => new ArticleContract { Price = article.Price, PricePerUnit = article.PricePerLitre }).ToArray();
+            return articles.Select(article => new ArticleContract { Price = article.Price, PricePerUnit = article.PricePerUnit }).ToArray();
         }
     }
 }

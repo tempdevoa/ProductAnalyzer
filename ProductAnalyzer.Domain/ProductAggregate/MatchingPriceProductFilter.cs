@@ -10,7 +10,7 @@
             var filteredProducts = products
             .Select(p => new Product(
                 p.Name,
-                p.Articles.Where(a => a.Price == priceToMatch ).OrderBy(p => p.PricePerLitre).ToList()))
+                p.Articles.Where(a => a.Price == priceToMatch ).OrderBy(p => p.PricePerUnit).ToList()))
             .Where(p => p.Articles.Any());
 
             return filteredProducts;

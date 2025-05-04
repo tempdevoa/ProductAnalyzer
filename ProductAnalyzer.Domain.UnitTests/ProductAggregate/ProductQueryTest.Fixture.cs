@@ -1,5 +1,6 @@
 using Moq;
 using ProductAnalyzer.Domain.ProductAggregate;
+using ProductAnalyzer.Domain.Testing;
 using ProductAnalyzer.Gateways.ProductAggregate;
 
 namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
@@ -9,8 +10,8 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
         private class Fixture
         {
             private readonly Mock<IProductGateway> productGatewayMock = new (MockBehavior.Loose);
-            private readonly Product cheapestPerLitre = new ("Cheap", new List<Article>());
-            private readonly Product mostExpensivePerLitre = new ("Expensive", new List<Article>());
+            private readonly Product cheapestPerLitre = ProductBuilder.New().WithName("Cheap").Build();
+            private readonly Product mostExpensivePerLitre = ProductBuilder.New().WithName("Expensive").Build();
 
             public Fixture()
             {

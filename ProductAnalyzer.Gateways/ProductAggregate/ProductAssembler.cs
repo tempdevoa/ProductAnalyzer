@@ -27,17 +27,6 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
             return new Article(contract.Price, ToPricePerLitre(contract.PricePerUnit));
         }
 
-        private static decimal ToPrice(string? price)
-        {
-            if(price == null)
-            {
-                return 0m;
-            }
-
-            var culture = System.Globalization.CultureInfo.InvariantCulture;
-            return decimal.Parse(price, System.Globalization.NumberStyles.AllowDecimalPoint, culture);
-        }
-
         private static decimal ToPricePerLitre(string? pricePerLitre)
         {
             var match = pricePerLitreRegex.Match(pricePerLitre ?? string.Empty);

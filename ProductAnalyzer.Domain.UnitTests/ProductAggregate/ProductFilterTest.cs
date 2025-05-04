@@ -39,20 +39,20 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
 
             Assert.That(resultMultipleWithCheapest, Is.Not.Null);
             Assert.That(resultMultipleWithCheapest.Articles.Count, Is.EqualTo(1));
-            Assert.That(resultMultipleWithCheapest.Articles.First().PricePerLitre, Is.EqualTo(9));
+            Assert.That(resultMultipleWithCheapest.Articles.First().PricePerUnit, Is.EqualTo(9));
 
             Assert.That(resultSingleCheapest, Is.Not.Null);
             Assert.That(resultSingleCheapest.Articles.Count, Is.EqualTo(1));
-            Assert.That(resultSingleCheapest.Articles.First().PricePerLitre, Is.EqualTo(9));
+            Assert.That(resultSingleCheapest.Articles.First().PricePerUnit, Is.EqualTo(9));
 
             Assert.That(resultSingleMostExpensive, Is.Not.Null);
             Assert.That(resultSingleMostExpensive.Articles.Count, Is.EqualTo(1));
-            Assert.That(resultSingleMostExpensive.Articles.First().PricePerLitre, Is.EqualTo(15));
+            Assert.That(resultSingleMostExpensive.Articles.First().PricePerUnit, Is.EqualTo(15));
 
             Assert.That(resultCheapestAndMostExpensive, Is.Not.Null);
             Assert.That(resultCheapestAndMostExpensive.Articles.Count, Is.EqualTo(2));
-            Assert.That(resultCheapestAndMostExpensive.Articles.First().PricePerLitre, Is.EqualTo(15));
-            Assert.That(resultCheapestAndMostExpensive.Articles.Last().PricePerLitre, Is.EqualTo(9));
+            Assert.That(resultCheapestAndMostExpensive.Articles.First().PricePerUnit, Is.EqualTo(15));
+            Assert.That(resultCheapestAndMostExpensive.Articles.Last().PricePerUnit, Is.EqualTo(9));
         }
 
         [Test]
@@ -87,9 +87,9 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
             Assert.That(resultMultipleMatchingPrice, Is.Not.Null);
             Assert.That(resultMultipleMatchingPrice.Articles.Count, Is.EqualTo(2));
             Assert.That(resultMultipleMatchingPrice.Articles.First().Price, Is.EqualTo(9));
-            Assert.That(resultMultipleMatchingPrice.Articles.First().PricePerLitre, Is.EqualTo(1));
+            Assert.That(resultMultipleMatchingPrice.Articles.First().PricePerUnit, Is.EqualTo(1));
             Assert.That(resultMultipleMatchingPrice.Articles.Last().Price, Is.EqualTo(9));
-            Assert.That(resultMultipleMatchingPrice.Articles.Last().PricePerLitre, Is.EqualTo(2));
+            Assert.That(resultMultipleMatchingPrice.Articles.Last().PricePerUnit, Is.EqualTo(2));
         }
     }
 }
