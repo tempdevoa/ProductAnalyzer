@@ -91,5 +91,45 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
             Assert.That(resultMultipleMatchingPrice.Articles.Last().Price, Is.EqualTo(9));
             Assert.That(resultMultipleMatchingPrice.Articles.Last().PricePerUnit, Is.EqualTo(2));
         }
+
+        [Test]
+        public void MostBottles_ShouldFilterCorrectly()
+        {
+            var multipleWithMostBottles = ProductBuilder.New().WithName("multipleWithMostBottles")
+                .WithNewArticleWith(ArticleBuilder.New().WithNumberOfPackagingUnits(9))
+                .WithNewArticleWith(ArticleBuilder.New().WithNumberOfPackagingUnits(9))
+                .WithNewArticleWith(ArticleBuilder.New().WithNumberOfPackagingUnits(8))
+                .Build();
+
+            var singleWithMostBottles = ProductBuilder.New().WithName("singleWithMostBottles")
+                .WithNewArticleWith(ArticleBuilder.New().WithNumberOfPackagingUnits(9))
+                .Build();
+
+            var products = new List<Product>
+            {
+                multipleWithMostBottles,
+                singleWithMostBottles,
+                ProductBuilder.New().WithNewArticleWithPricePerUnit(10).Build(),
+                ProductBuilder.New().WithNewArticleWithPricePerUnit(11).Build()
+            };
+
+            var testObject = ProductFilterFactory.MostBottles;
+            List<Product> result = testObject.Filter(products).ToList();
+
+            Assert.That(result, Is.Not.Null.Or.Empty);
+            Assert.That(result.Count, Is.EqualTo(2));
+
+            var resultSingleWithMostBottles = result.SingleOrDefault(x => x.Name.Equals(singleWithMostBottles.Name));
+            var resultMultipleWithMostBottles = result.SingleOrDefault(x => x.Name.Equals(multipleWithMostBottles.Name));
+                        
+            Assert.That(resultSingleWithMostBottles, Is.Not.Null);
+            Assert.That(resultSingleWithMostBottles.Articles.Count, Is.EqualTo(1));
+            Assert.That(resultSingleWithMostBottles.Articles.First().NumberOfPackagingUnits, Is.EqualTo(9));          
+
+            Assert.That(resultMultipleWithMostBottles, Is.Not.Null);
+            Assert.That(resultMultipleWithMostBottles.Articles.Count, Is.EqualTo(2));
+            Assert.That(resultMultipleWithMostBottles.Articles.First().NumberOfPackagingUnits, Is.EqualTo(9));
+            Assert.That(resultMultipleWithMostBottles.Articles.Last().NumberOfPackagingUnits, Is.EqualTo(9));
+        }
     }
 }

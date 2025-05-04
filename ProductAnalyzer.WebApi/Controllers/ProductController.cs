@@ -31,6 +31,14 @@ namespace ProductAnalyzer.WebApi.Controllers
             return Ok(ToContract(bottles));
         }
 
+        [HttpGet]
+        [Route("MostNumberOfPackagingUnits")]
+        public async Task<IActionResult> MostNumberOfPackagingUnitsAsync()
+        {
+            var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MostBottles);
+            return Ok(ToContract(bottles));
+        }
+
         private static IEnumerable<ProductContract> ToContract(IEnumerable<Product> products)
         {
             // This methods could be split into its own assembler class if wanted.
@@ -39,7 +47,11 @@ namespace ProductAnalyzer.WebApi.Controllers
 
         private static ArticleContract[] ToContract(IEnumerable<Article> articles)
         {
-            return articles.Select(article => new ArticleContract { Price = article.Price, PricePerUnit = article.PricePerUnit }).ToArray();
+            return articles.Select(article => new ArticleContract { 
+                Price = article.Price, 
+                PricePerUnit = article.PricePerUnit, 
+                NumberOfPackagingUnits = article.NumberOfPackagingUnits 
+            }).ToArray();
         }
     }
 }

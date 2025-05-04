@@ -8,5 +8,7 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
         public required string PricePerUnit { get; set; }
 
         public required decimal Price { get; set; }
+
+        public required string ShortDescription { get; set; }
     }
 }

@@ -11,14 +11,63 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
         }
 
         [Test]
-        public async Task GetMostExpensiveAndCheapestByLitre_ShouldReturnMostExpensiveAndCheapest()
+        public async Task GetMostExpensiveAndCheapestByLitre_ShouldAssembleCorrectly()
         {
-            fixture.SetupForMostExpensiveAndCheapest();
-
             var testObject = fixture.CreateTestObject();
-            var result = await testObject.GetAsync();
+            
+            var result = await testObject.GetMostExpensiveAndCheapestAsync();
 
-            fixture.AssertResultForMostExpensiveAndCheapest(result);
+            fixture.AssertResult(result);
+        }
+
+        [Test]
+        public async Task GetMostExpensiveAndCheapestByLitre_ShouldInvokeCorrectProductFilter()
+        {
+            var testObject = fixture.CreateTestObject();
+
+            var result = await testObject.GetMostExpensiveAndCheapestAsync();
+
+            fixture.AssertMostExpensiveAndCheapestFilterInvoked();
+        }
+
+        [Test]
+        public async Task MatchingPriceAsync_ShouldAssembleCorrectly()
+        {
+            var testObject = fixture.CreateTestObject();
+            
+            var result = await testObject.MatchingPriceAsync(fixture.MatchingPrice);
+
+            fixture.AssertResult(result);
+        }
+
+        [Test]
+        public async Task MatchingPriceAsync_ShouldInvokeCorrectProductFilter()
+        {
+            var testObject = fixture.CreateTestObject();
+
+            var result = await testObject.MatchingPriceAsync(fixture.MatchingPrice);
+
+            fixture.AssertMatchingPriceProductFilterInvoked();
+        }
+
+        [Test]
+        public async Task MostNumberOfPackagingUnitsAsync_ShouldAssembleCorrectly()
+        {
+            var testObject = fixture.CreateTestObject();
+
+            var result = await testObject.MostNumberOfPackagingUnitsAsync();
+
+            fixture.AssertResult(result);
+        }
+
+        [Test]
+        public async Task MostNumberOfPackagingUnitsAsync_ShouldInvokeCorrectProductFilter()
+        {
+            var testObject = fixture.CreateTestObject();
+
+            var result = await testObject.MostNumberOfPackagingUnitsAsync();
+
+            fixture.AssertMostBottlesProductFilterInvoked();
         }
     }
 }

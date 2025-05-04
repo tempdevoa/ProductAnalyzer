@@ -5,5 +5,7 @@
         public required decimal PricePerUnit { get; set; }
 
         public required decimal Price { get; set; }
+
+        public required int NumberOfPackagingUnits { get; set; }
     }
 }

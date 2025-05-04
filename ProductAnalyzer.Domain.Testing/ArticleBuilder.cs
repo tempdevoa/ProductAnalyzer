@@ -9,12 +9,13 @@ namespace ProductAnalyzer.Domain.Testing
             return new ArticleBuilder();
         }
 
-        private decimal pricePerUnit = 1;
-        private decimal price = 2;
-        
+        private decimal pricePerUnit = 2;
+        private decimal price = 3;
+        private int numberOfPackagingUnits = 5;
+
         public Article Build()
         {
-            return new Article(price, pricePerUnit);
+            return new Article(price, pricePerUnit, numberOfPackagingUnits);
         }
 
         public ArticleBuilder WithPricePerUnit(decimal pricePerUnitParam)
@@ -26,6 +27,12 @@ namespace ProductAnalyzer.Domain.Testing
         public ArticleBuilder WithPrice(decimal priceParam)
         {
             price = priceParam;
+            return this;
+        }
+
+        public ArticleBuilder WithNumberOfPackagingUnits(int numberOfPackagingUnitsParam)
+        {
+            numberOfPackagingUnits = numberOfPackagingUnitsParam;
             return this;
         }
     }
