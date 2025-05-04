@@ -8,10 +8,8 @@
                 return Enumerable.Empty<Product>();
                         
             var filteredProducts = products
-            .Select(p => new Product(
-                p.Name,
-                p.Articles.Where(a => a.Price == priceToMatch ).OrderBy(p => p.PricePerUnit).ToList()))
-            .Where(p => p.Articles.Any());
+            .Select(p => p.ReduceToArticlesWithMatchingPrice(priceToMatch))
+            .Where(p => p.HasArticles);
 
             return filteredProducts;
         }

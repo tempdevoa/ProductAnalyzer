@@ -7,15 +7,12 @@
             if (!products.Any())
                 return Enumerable.Empty<Product>();
 
-            var allArticlesOrderedByPrice = products.SelectMany(p => p.Articles);
-            var highestPrice = allArticlesOrderedByPrice.Max(p => p.PricePerUnit);
-            var lowestPrice = allArticlesOrderedByPrice.Min(p => p.PricePerUnit); ;
+            var highestPrice = products.Max(p => p.HighestPricePerUnit);
+            var lowestPrice = products.Min(p => p.CheapestPricePerUnit);
 
             var filteredProducts = products
-            .Select(p => new Product(
-                p.Name,
-                p.Articles.Where(a => a.PricePerUnit == highestPrice || a.PricePerUnit == lowestPrice).ToList()))
-            .Where(p => p.Articles.Any());
+                .Select(p => p.ReduceToArticlesWithMatchingPricePerUnit(lowestPrice, highestPrice))
+                .Where(p => p.HasArticles).ToList();
 
             return filteredProducts;
         }

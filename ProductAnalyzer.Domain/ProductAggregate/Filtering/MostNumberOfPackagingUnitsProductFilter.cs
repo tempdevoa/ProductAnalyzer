@@ -7,13 +7,12 @@
             if (!products.Any())
                 return Enumerable.Empty<Product>();
 
-            var highesNumberOfPackagingUnits = products.Max(p => p.Articles.Max(a => a.NumberOfPackagingUnits));
+            var highestNumberOfPackagingUnits = products.Max(p => p.NumberOfMostPackagingUnits);
 
             var filteredProducts = products
-                .Select(p => new Product(
-                    p.Name,
-                    p.Articles.Where(a => a.NumberOfPackagingUnits.Equals(highesNumberOfPackagingUnits)).ToList()))
-                .Where(p => p.Articles.Any());
+                .Select(p => p.ReduceToArticlesWithMatchingNumberOfPackagingUnits(highestNumberOfPackagingUnits))
+                .Where(p => p.HasArticles);
+
             return filteredProducts;
         }
     }
