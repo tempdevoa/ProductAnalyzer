@@ -7,16 +7,36 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
     {
         public async Task<IEnumerable<ProductContract>> GetAllAsync()
         {
-            var response = await client.GetAsync(string.Empty);
+            var response = await client.GetAsync(string.Empty, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
-                        
-            return await JsonSerializer.DeserializeAsync<IEnumerable<ProductContract>>(
-                response.Content.ReadAsStream(), 
-                new JsonSerializerOptions
+            
+            var products = new List<ProductContract>();
+            using (var stream = await response.Content.ReadAsStreamAsync())
+            using (var memoryStream = new MemoryStream())
+            {
+                await stream.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+
+                var utf8JsonReader = new Utf8JsonReader(memoryStream.ToArray());
+                while (utf8JsonReader.Read())
                 {
-                    TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
-                    PropertyNameCaseInsensitive = true,
-                }) ?? Enumerable.Empty<ProductContract>();
+                    if (utf8JsonReader.TokenType == JsonTokenType.StartObject)
+                    {
+                        var product = JsonSerializer.Deserialize<ProductContract>(ref utf8JsonReader, new JsonSerializerOptions
+                        {
+                            TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
+                            PropertyNameCaseInsensitive = true,
+                        });
+
+                        if (product != null)
+                        {
+                            products.Add(product);
+                        }
+                    }
+                }
+            }
+
+            return products;
         }
     }
 }
