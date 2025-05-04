@@ -1,4 +1,4 @@
-﻿namespace ProductAnalyzer.Domain.ProductAggregate
+﻿namespace ProductAnalyzer.Domain.ProductAggregate.Filtering
 {
     public interface IProductFilter
     {

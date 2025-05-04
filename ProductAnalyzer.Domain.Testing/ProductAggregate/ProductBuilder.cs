@@ -1,6 +1,6 @@
 ﻿using ProductAnalyzer.Domain.ProductAggregate;
 
-namespace ProductAnalyzer.Domain.Testing
+namespace ProductAnalyzer.Domain.Testing.ProductAggregate
 {
     public sealed class ProductBuilder
     {

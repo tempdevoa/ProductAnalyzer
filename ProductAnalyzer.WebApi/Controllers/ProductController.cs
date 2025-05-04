@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductAnalyzer.Domain.ProductAggregate;
+using ProductAnalyzer.Domain.ProductAggregate.Filtering;
 using ProductAnalyzer.WebApi.Contracts;
 
 namespace ProductAnalyzer.WebApi.Controllers

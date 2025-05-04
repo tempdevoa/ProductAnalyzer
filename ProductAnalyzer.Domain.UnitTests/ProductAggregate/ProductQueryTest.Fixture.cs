@@ -1,6 +1,6 @@
 using Moq;
 using ProductAnalyzer.Domain.ProductAggregate;
-using ProductAnalyzer.Domain.Testing;
+using ProductAnalyzer.Domain.Testing.ProductAggregate;
 using ProductAnalyzer.Gateways.ProductAggregate;
 
 namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
@@ -26,14 +26,6 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
             internal void AssertMocksInvokedCorrectly()
             {
                 productGatewayMock.Verify(m => m.GetAllAsync(), Times.Once, "GetAllAsync was not called exactly once.");
-            }
-
-            public class OnlyFirstProductFilter : IProductFilter
-            {
-                public IEnumerable<Product> Filter(IEnumerable<Product> products)
-                {
-                    return products.Take(1);
-                }
             }
         }
     }

@@ -1,7 +1,8 @@
 ﻿using ProductAnalyzer.Domain.ProductAggregate;
-using ProductAnalyzer.Domain.Testing;
+using ProductAnalyzer.Domain.ProductAggregate.Filtering;
+using ProductAnalyzer.Domain.Testing.ProductAggregate;
 
-namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
+namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate.Filtering
 {
     public sealed class ProductFilterTest
     {

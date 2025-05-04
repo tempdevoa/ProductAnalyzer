@@ -1,4 +1,4 @@
-using ProductAnalyzer.Domain.ProductAggregate;
+using ProductAnalyzer.Domain.Testing.ProductAggregate.Filtering;
 
 namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
 {
@@ -18,7 +18,7 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
         {
             var testObject = fixture.CreateTestObject();
 
-            await testObject.QueryWithAsync(ProductFilterFactory.NonFiltering);
+            await testObject.QueryWithAsync(new OnlyFirstProductFilter());
 
             fixture.AssertMocksInvokedCorrectly();
         }
@@ -28,7 +28,7 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
         {
             var testObject = fixture.CreateTestObject();
 
-            var result = await testObject.QueryWithAsync(new Fixture.OnlyFirstProductFilter());
+            var result = await testObject.QueryWithAsync(new OnlyFirstProductFilter());
 
             Assert.That(result.Count(), Is.EqualTo(1), "Expected exactly one product in the result.");
         }

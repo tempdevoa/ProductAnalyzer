@@ -1,4 +1,5 @@
-﻿using ProductAnalyzer.Gateways.ProductAggregate;
+﻿using ProductAnalyzer.Domain.ProductAggregate.Filtering;
+using ProductAnalyzer.Gateways.ProductAggregate;
 
 namespace ProductAnalyzer.Domain.ProductAggregate
 {

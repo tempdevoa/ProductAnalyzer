@@ -28,6 +28,7 @@
             Assert.That(matchedProduct.Articles, Is.Not.Empty, "No article assembled.");
             Assert.That(matchedProduct.Articles[0].PricePerUnit, Is.EqualTo("(1,70 €/Liter)"), "The price per unit should be correctly assembled.");
             Assert.That(matchedProduct.Articles[0].Price, Is.EqualTo(16.99), "The price should be correctly assembled.");
+            Assert.That(matchedProduct.Articles[0].ShortDescription, Is.EqualTo("20 x 0,5L (Glas)"), "The price should be correctly assembled.");
         }
     }
 }

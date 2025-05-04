@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ProductAnalyzer.Domain.ProductAggregate;
-using ProductAnalyzer.Domain.Testing;
+using ProductAnalyzer.Domain.ProductAggregate.Filtering;
+using ProductAnalyzer.Domain.Testing.ProductAggregate;
 using ProductAnalyzer.WebApi.Contracts;
 using ProductAnalyzer.WebApi.Controllers;
 
