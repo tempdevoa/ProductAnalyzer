@@ -7,7 +7,7 @@ namespace ProductAnalyzer.Gateways.ProductAggregate
     {
         public async Task<IEnumerable<ProductContract>> GetAllAsync()
         {
-            var response = await client.GetAsync("ProductData.json");
+            var response = await client.GetAsync(string.Empty);
             response.EnsureSuccessStatusCode();
                         
             return await JsonSerializer.DeserializeAsync<IEnumerable<ProductContract>>(

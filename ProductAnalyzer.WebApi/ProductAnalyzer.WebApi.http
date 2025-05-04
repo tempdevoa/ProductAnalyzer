@@ -1,21 +1,21 @@
 @ProductAnalyzer.WebApi_HostAddress = http://localhost:5136
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/product/combined?price=17.99
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/combined?url=https://flapotest.blob.core.windows.net/test/ProductData.json&price=17.99
 Accept: application/json
 
 ###
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MostExpensiveAndCheapest/
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MostExpensiveAndCheapest?url=https://flapotest.blob.core.windows.net/test/ProductData.json
 Accept: application/json
 
 ###
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MatchingPrice?price=17.99
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MatchingPrice?url=https://flapotest.blob.core.windows.net/test/ProductData.json&price=17.99
 Accept: application/json
 
 ###
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MostNumberOfPackagingUnits/
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MostNumberOfPackagingUnits?url=https://flapotest.blob.core.windows.net/test/ProductData.json
 Accept: application/json
 
 ###

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductAnalyzer.Domain.ProductAggregate;
 using ProductAnalyzer.Domain.ProductAggregate.Filtering;
-using ProductAnalyzer.WebApi.Contracts;
+using ProductAnalyzer.Gateways.ProductAggregate;
 
 namespace ProductAnalyzer.WebApi.Controllers
 {
@@ -11,8 +11,15 @@ namespace ProductAnalyzer.WebApi.Controllers
     {
         [HttpGet]
         [Route("Combined")]
-        public async Task<IActionResult> GetAsync(decimal price)
+        public async Task<IActionResult> GetAsync(string url, decimal price)
         {
+            if (string.IsNullOrWhiteSpace(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                return BadRequest("Invalid URL");
+            }
+
+            ProductClientFactory.SetBaseUrl(url);
+
             var matchedPrice = await productQuery.QueryWithAsync(ProductFilterFactory.MatchingPrice(price));
             var mostExpensiveAndCheapest = await productQuery.QueryWithAsync(ProductFilterFactory.MostExpensiveAndCheapest);
             var mostNumberOfPackagingUnits = await productQuery.QueryWithAsync(ProductFilterFactory.MostBottles);
@@ -29,37 +36,59 @@ namespace ProductAnalyzer.WebApi.Controllers
 
         [HttpGet]
         [Route("MostExpensiveAndCheapest")]
-        public async Task<IActionResult> GetMostExpensiveAndCheapestAsync()
+        public async Task<IActionResult> GetMostExpensiveAndCheapestAsync(string url)
         {
+            if (string.IsNullOrWhiteSpace(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                return BadRequest("Invalid URL");
+            }
+
+            ProductClientFactory.SetBaseUrl(url);
+
             var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MostExpensiveAndCheapest);
             return Ok(ToContract(bottles));
         }
 
         [HttpGet]
         [Route("MatchingPrice")]
-        public async Task<IActionResult> MatchingPriceAsync(decimal price)
+        public async Task<IActionResult> MatchingPriceAsync(string url, decimal price)
         {
+            if (string.IsNullOrWhiteSpace(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                return BadRequest("Invalid URL");
+            }
+
+            ProductClientFactory.SetBaseUrl(url);
+
             var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MatchingPrice(price));
             return Ok(ToContract(bottles));
         }
 
         [HttpGet]
         [Route("MostNumberOfPackagingUnits")]
-        public async Task<IActionResult> MostNumberOfPackagingUnitsAsync()
+        public async Task<IActionResult> MostNumberOfPackagingUnitsAsync(string url)
         {
+            if (string.IsNullOrWhiteSpace(url) || !Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                return BadRequest("Invalid URL");
+            }
+
+            ProductClientFactory.SetBaseUrl(url);
+
             var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MostBottles);
             return Ok(ToContract(bottles));
         }
 
-        private static IEnumerable<ProductContract> ToContract(IEnumerable<Product> products)
+        private static IEnumerable<Contracts.ProductContract> ToContract(IEnumerable<Product> products)
         {
             // This methods could be split into its own assembler class if wanted.
-            return products.Select(product => new ProductContract { Name = product.Name, Articles = ToContract(product.Articles) });
+            return products.Select(product => new Contracts.ProductContract { Name = product.Name, Articles = ToContract(product.Articles) });
         }
 
-        private static ArticleContract[] ToContract(IEnumerable<Article> articles)
+        private static Contracts.ArticleContract[] ToContract(IEnumerable<Article> articles)
         {
-            return articles.Select(article => new ArticleContract { 
+            return articles.Select(article => new Contracts.ArticleContract
+            { 
                 Price = article.Price, 
                 PricePerUnit = article.PricePerUnit, 
                 NumberOfPackagingUnits = article.NumberOfPackagingUnits 

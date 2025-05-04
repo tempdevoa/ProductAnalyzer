@@ -17,6 +17,8 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
 
 			public decimal MatchingPrice => product.Articles.First().Price;
 
+            public string Url => "https://www.TestUrl.com";
+
             public Fixture()
             {
                 bottleQueryMock.Setup(m => m.QueryWithAsync(It.IsAny<IProductFilter>())).ReturnsAsync([product]);

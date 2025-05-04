@@ -15,7 +15,7 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
         {
             var testObject = fixture.CreateTestObject();
             
-            var result = await testObject.GetMostExpensiveAndCheapestAsync();
+            var result = await testObject.GetMostExpensiveAndCheapestAsync(fixture.Url);
 
             fixture.AssertResult(result);
         }
@@ -25,7 +25,7 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
         {
             var testObject = fixture.CreateTestObject();
 
-            var result = await testObject.GetMostExpensiveAndCheapestAsync();
+            var result = await testObject.GetMostExpensiveAndCheapestAsync(fixture.Url);
 
             fixture.AssertMostExpensiveAndCheapestFilterInvoked();
         }
@@ -35,7 +35,7 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
         {
             var testObject = fixture.CreateTestObject();
             
-            var result = await testObject.MatchingPriceAsync(fixture.MatchingPrice);
+            var result = await testObject.MatchingPriceAsync(fixture.Url, fixture.MatchingPrice);
 
             fixture.AssertResult(result);
         }
@@ -45,7 +45,7 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
         {
             var testObject = fixture.CreateTestObject();
 
-            var result = await testObject.MatchingPriceAsync(fixture.MatchingPrice);
+            var result = await testObject.MatchingPriceAsync(fixture.Url, fixture.MatchingPrice);
 
             fixture.AssertMatchingPriceProductFilterInvoked();
         }
@@ -55,7 +55,7 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
         {
             var testObject = fixture.CreateTestObject();
 
-            var result = await testObject.MostNumberOfPackagingUnitsAsync();
+            var result = await testObject.MostNumberOfPackagingUnitsAsync(fixture.Url);
 
             fixture.AssertResult(result);
         }
@@ -65,7 +65,7 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
         {
             var testObject = fixture.CreateTestObject();
 
-            var result = await testObject.MostNumberOfPackagingUnitsAsync();
+            var result = await testObject.MostNumberOfPackagingUnitsAsync(fixture.Url);
 
             fixture.AssertMostBottlesProductFilterInvoked();
         }

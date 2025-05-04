@@ -5,7 +5,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient("ProductClient", client =>
 {
-    client.BaseAddress = new Uri("https://flapotest.blob.core.windows.net/test/");
     client.Timeout = TimeSpan.FromSeconds(30);
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
