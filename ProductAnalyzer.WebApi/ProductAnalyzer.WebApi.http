@@ -10,7 +10,7 @@ Accept: application/json
 
 ###
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MatchingPrice?price=1.50
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/MatchingPrice?price=17.99
 Accept: application/json
 
 ###

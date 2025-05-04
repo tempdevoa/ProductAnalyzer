@@ -11,8 +11,8 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
     {
 		private sealed class Fixture
 		{
-            private readonly Product cheapestBottleByLitre = ProductBuilder.New().WithName("Min").WithArticleWithPrice(1).Build();
-			private readonly Product mostExpensiveBottleByLitre = ProductBuilder.New().WithName("Max").WithArticleWithPrice(2).Build();
+            private readonly Product cheapestBottleByLitre = ProductBuilder.New().WithName("Min").WithNewArticleWithPrice(1).Build();
+			private readonly Product mostExpensiveBottleByLitre = ProductBuilder.New().WithName("Max").WithNewArticleWithPrice(2).Build();
             private readonly Mock<IProductQuery> bottleQueryMock = new();
 
 			public ProductController CreateTestObject()
@@ -22,7 +22,7 @@ namespace ProductAnalyzer.WebApi.UnitTests.Controllers
 
 			internal void SetupForMostExpensiveAndCheapest()
 			{
-				bottleQueryMock.Setup(m => m.QueryWithAsync(It.IsAny<ProductFilter>())).ReturnsAsync([cheapestBottleByLitre, mostExpensiveBottleByLitre]);
+				bottleQueryMock.Setup(m => m.QueryWithAsync(It.IsAny<IProductFilter>())).ReturnsAsync([cheapestBottleByLitre, mostExpensiveBottleByLitre]);
 			}
 
 			internal void AssertResultForMostExpensiveAndCheapest(IActionResult result)

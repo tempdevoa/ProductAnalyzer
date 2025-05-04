@@ -27,7 +27,7 @@ namespace ProductAnalyzer.WebApi.Controllers
         [Route("MatchingPrice")]
         public async Task<IActionResult> MatchingPriceAsync(decimal price)
         {
-            var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MatchingPrice);
+            var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.MatchingPrice(price));
             return Ok(ToContract(bottles));
         }
 

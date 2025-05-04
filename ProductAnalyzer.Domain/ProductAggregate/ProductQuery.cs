@@ -4,10 +4,10 @@ namespace ProductAnalyzer.Domain.ProductAggregate
 {
     public class ProductQuery(IProductGateway productGateway) : IProductQuery
     {
-        public async Task<IEnumerable<Product>> QueryWithAsync(ProductFilter productFilter)
+        public async Task<IEnumerable<Product>> QueryWithAsync(IProductFilter productFilter)
         {
             var allProducts = await productGateway.GetAllAsync();
-            return productFilter(allProducts);
+            return productFilter.Filter(allProducts);
         }
     }
 }

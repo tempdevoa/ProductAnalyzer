@@ -8,26 +8,26 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
         [Test]
         public void MostExpensiveAndCheapest_ShouldFilterCorrectly()
         {
-            var multipleWithCheapest = ProductBuilder.New().WithName("Multiple with cheapest").WithArticleWithPricePerUnit(9).WithArticleWithPricePerUnit(14).Build();
-            var singleCheapest = ProductBuilder.New().WithName("Single cheapest").WithArticleWithPricePerUnit(9).Build();
-            var singleMostExpensive = ProductBuilder.New().WithName("Single most expensive").WithArticleWithPricePerUnit(15).Build();
-            var cheapestAndMostExpensive = ProductBuilder.New().WithName("cheapest and most expensive").WithArticleWithPricePerUnit(15).WithArticleWithPricePerUnit(9).Build();
+            var multipleWithCheapest = ProductBuilder.New().WithName("Multiple with cheapest").WithNewArticleWithPricePerUnit(9).WithNewArticleWithPricePerUnit(14).Build();
+            var singleCheapest = ProductBuilder.New().WithName("Single cheapest").WithNewArticleWithPricePerUnit(9).Build();
+            var singleMostExpensive = ProductBuilder.New().WithName("Single most expensive").WithNewArticleWithPricePerUnit(15).Build();
+            var cheapestAndMostExpensive = ProductBuilder.New().WithName("cheapest and most expensive").WithNewArticleWithPricePerUnit(15).WithNewArticleWithPricePerUnit(9).Build();
 
             var products = new List<Product>
             {
                 multipleWithCheapest,
                 singleCheapest,
-                ProductBuilder.New().WithArticleWithPricePerUnit(10).Build(),
-                ProductBuilder.New().WithArticleWithPricePerUnit(11).Build(),
-                ProductBuilder.New().WithArticleWithPricePerUnit(12).Build(),
-                ProductBuilder.New().WithArticleWithPricePerUnit(13).Build(),
+                ProductBuilder.New().WithNewArticleWithPricePerUnit(10).Build(),
+                ProductBuilder.New().WithNewArticleWithPricePerUnit(11).Build(),
+                ProductBuilder.New().WithNewArticleWithPricePerUnit(12).Build(),
+                ProductBuilder.New().WithNewArticleWithPricePerUnit(13).Build(),
                 cheapestAndMostExpensive,
-                ProductBuilder.New().WithArticleWithPricePerUnit(11).WithArticleWithPricePerUnit(14).Build(),
+                ProductBuilder.New().WithNewArticleWithPricePerUnit(11).WithNewArticleWithPricePerUnit(14).Build(),
                 singleMostExpensive
             };
 
             var testObject = ProductFilterFactory.MostExpensiveAndCheapest;
-            List<Product>? result = testObject(products)?.ToList();
+            List<Product>? result = testObject.Filter(products).ToList();
 
             Assert.That(result, Is.Not.Null.Or.Empty);
             Assert.That(result.Count, Is.EqualTo(4));
@@ -58,51 +58,38 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
         [Test]
         public void MatchesPrice_ShouldFilterCorrectly()
         {
-            var multipleWithCheapest = ProductBuilder.New().WithName("Multiple with cheapest").WithArticleWithPrice(9).Build();
-            var singleCheapest = ProductBuilder.New().WithName("Single cheapest").WithArticleWithPricePerUnit(9).Build();
-            var singleMostExpensive = ProductBuilder.New().WithName("Single most expensive").WithArticleWithPricePerUnit(15).Build();
-            var cheapestAndMostExpensive = ProductBuilder.New().WithName("cheapest and most expensive").WithArticleWithPricePerUnit(15).WithArticleWithPricePerUnit(9).Build();
+            var matchingPrice = ProductBuilder.New().WithName("matchingPrice").WithNewArticleWithPrice(9).Build();
+            var notMatchingPrice = ProductBuilder.New().WithName("notMatchingPrice").WithNewArticleWithPrice(15).Build();
+            var multipleMatchingPrice = ProductBuilder.New().WithName("multipleMatchingPrice")
+                .WithNewArticleWith(ArticleBuilder.New().WithPrice(9).WithPricePerUnit(1))
+                .WithNewArticleWith(ArticleBuilder.New().WithPrice(9).WithPricePerUnit(2)).Build();
 
             var products = new List<Product>
             {
-                multipleWithCheapest,
-                singleCheapest,
-                ProductBuilder.New().WithArticleWithPricePerUnit(10).Build(),
-                ProductBuilder.New().WithArticleWithPricePerUnit(11).Build(),
-                ProductBuilder.New().WithArticleWithPricePerUnit(12).Build(),
-                ProductBuilder.New().WithArticleWithPricePerUnit(13).Build(),
-                cheapestAndMostExpensive,
-                ProductBuilder.New().WithArticleWithPricePerUnit(11).WithArticleWithPricePerUnit(14).Build(),
-                singleMostExpensive
+                matchingPrice,
+                multipleMatchingPrice,
+                notMatchingPrice
             };
 
-            var testObject = ProductFilterFactory.MostExpensiveAndCheapest;
-            List<Product>? result = testObject(products)?.ToList();
+            var testObject = ProductFilterFactory.MatchingPrice(9);
+            List<Product>? result = testObject.Filter(products)?.ToList();
 
             Assert.That(result, Is.Not.Null.Or.Empty);
-            Assert.That(result.Count, Is.EqualTo(4));
+            Assert.That(result.Count, Is.EqualTo(2));
 
-            var resultMultipleWithCheapest = result.SingleOrDefault(x => x.Name.Equals(multipleWithCheapest.Name));
-            var resultSingleCheapest = result.SingleOrDefault(x => x.Name.Equals(singleCheapest.Name));
-            var resultSingleMostExpensive = result.SingleOrDefault(x => x.Name.Equals(singleMostExpensive.Name));
-            var resultCheapestAndMostExpensive = result.SingleOrDefault(x => x.Name.Equals(cheapestAndMostExpensive.Name));
-
-            Assert.That(resultMultipleWithCheapest, Is.Not.Null);
-            Assert.That(resultMultipleWithCheapest.Articles.Count, Is.EqualTo(1));
-            Assert.That(resultMultipleWithCheapest.Articles.First().PricePerLitre, Is.EqualTo(9));
-
-            Assert.That(resultSingleCheapest, Is.Not.Null);
-            Assert.That(resultSingleCheapest.Articles.Count, Is.EqualTo(1));
-            Assert.That(resultSingleCheapest.Articles.First().PricePerLitre, Is.EqualTo(9));
-
-            Assert.That(resultSingleMostExpensive, Is.Not.Null);
-            Assert.That(resultSingleMostExpensive.Articles.Count, Is.EqualTo(1));
-            Assert.That(resultSingleMostExpensive.Articles.First().PricePerLitre, Is.EqualTo(15));
-
-            Assert.That(resultCheapestAndMostExpensive, Is.Not.Null);
-            Assert.That(resultCheapestAndMostExpensive.Articles.Count, Is.EqualTo(2));
-            Assert.That(resultCheapestAndMostExpensive.Articles.First().PricePerLitre, Is.EqualTo(15));
-            Assert.That(resultCheapestAndMostExpensive.Articles.Last().PricePerLitre, Is.EqualTo(9));
+            var resultMultipleMatchingPrice = result.SingleOrDefault(x => x.Name.Equals(multipleMatchingPrice.Name));
+            var resultMatchingPrice = result.SingleOrDefault(x => x.Name.Equals(matchingPrice.Name));
+                                 
+            Assert.That(resultMatchingPrice, Is.Not.Null);
+            Assert.That(resultMatchingPrice.Articles.Count, Is.EqualTo(1));
+            Assert.That(resultMatchingPrice.Articles.First().Price, Is.EqualTo(9));
+                        
+            Assert.That(resultMultipleMatchingPrice, Is.Not.Null);
+            Assert.That(resultMultipleMatchingPrice.Articles.Count, Is.EqualTo(2));
+            Assert.That(resultMultipleMatchingPrice.Articles.First().Price, Is.EqualTo(9));
+            Assert.That(resultMultipleMatchingPrice.Articles.First().PricePerLitre, Is.EqualTo(1));
+            Assert.That(resultMultipleMatchingPrice.Articles.Last().Price, Is.EqualTo(9));
+            Assert.That(resultMultipleMatchingPrice.Articles.Last().PricePerLitre, Is.EqualTo(2));
         }
     }
 }

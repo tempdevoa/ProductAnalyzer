@@ -2,6 +2,6 @@
 {
     public interface IProductQuery
     {
-        Task<IEnumerable<Product>> QueryWithAsync(ProductFilter productFilter);
+        Task<IEnumerable<Product>> QueryWithAsync(IProductFilter productFilter);
     }
 }

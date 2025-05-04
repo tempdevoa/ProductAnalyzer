@@ -17,9 +17,15 @@ namespace ProductAnalyzer.Domain.Testing
             return new Product(name, articles);
         }
 
-        public ProductBuilder WithArticleWithPricePerUnit(decimal pricePerUnit)
+        public ProductBuilder WithNewArticleWithPricePerUnit(decimal pricePerUnit)
         {
-            articles.Add(new Article(pricePerUnit, pricePerUnit));
+            articles.Add(ArticleBuilder.New().WithPricePerUnit(pricePerUnit).Build());
+            return this;
+        }
+
+        public ProductBuilder WithNewArticleWith(ArticleBuilder articleBuilder)
+        {
+            articles.Add(articleBuilder.Build());
             return this;
         }
 
@@ -29,9 +35,9 @@ namespace ProductAnalyzer.Domain.Testing
             return this;
         }
 
-        public ProductBuilder WithArticleWithPrice(decimal priceParam)
+        public ProductBuilder WithNewArticleWithPrice(decimal priceParam)
         {
-            articles.Add(new Article(priceParam, priceParam));
+            articles.Add(ArticleBuilder.New().WithPrice(priceParam).Build());
             return this;
         }
     }

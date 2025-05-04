@@ -26,6 +26,14 @@ namespace ProductAnalyzer.Domain.UnitTests.ProductAggregate
             {
                 productGatewayMock.Verify(m => m.GetAllAsync(), Times.Once, "GetAllAsync was not called exactly once.");
             }
+
+            public class OnlyFirstProductFilter : IProductFilter
+            {
+                public IEnumerable<Product> Filter(IEnumerable<Product> products)
+                {
+                    return products.Take(1);
+                }
+            }
         }
     }
 }
