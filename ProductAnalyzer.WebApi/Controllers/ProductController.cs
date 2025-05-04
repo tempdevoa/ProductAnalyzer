@@ -9,10 +9,21 @@ namespace ProductAnalyzer.WebApi.Controllers
     public class ProductController(IProductQuery productQuery) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAsync()
+        [Route("Combined")]
+        public async Task<IActionResult> GetAsync(decimal price)
         {
-            var bottles = await productQuery.QueryWithAsync(ProductFilterFactory.NonFiltering);
-            return Ok(ToContract(bottles));
+            var matchedPrice = await productQuery.QueryWithAsync(ProductFilterFactory.MatchingPrice(price));
+            var mostExpensiveAndCheapest = await productQuery.QueryWithAsync(ProductFilterFactory.MostExpensiveAndCheapest);
+            var mostNumberOfPackagingUnits = await productQuery.QueryWithAsync(ProductFilterFactory.MostBottles);
+
+            var combinedResponse = new
+            {
+                MatchedPrice = ToContract(matchedPrice),
+                MostExpensiveAndCheapest = ToContract(mostExpensiveAndCheapest),
+                MostNumberOfPackagingUnits = ToContract(mostNumberOfPackagingUnits)
+            };
+
+            return Ok(combinedResponse);
         }
 
         [HttpGet]

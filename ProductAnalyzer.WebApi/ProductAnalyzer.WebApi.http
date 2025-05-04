@@ -1,6 +1,6 @@
 @ProductAnalyzer.WebApi_HostAddress = http://localhost:5136
 
-GET {{ProductAnalyzer.WebApi_HostAddress}}/product/
+GET {{ProductAnalyzer.WebApi_HostAddress}}/product/combined?price=17.99
 Accept: application/json
 
 ###
